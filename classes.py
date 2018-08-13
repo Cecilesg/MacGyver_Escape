@@ -2,7 +2,154 @@
 
 """Help MacGyver Escape Labyrinth game classes."""
 
+# TODO: import libraries
+
 import pygame
 from pygame.locals import *
 from constants import *
+from random import *
 
+
+# TODO: create class Level to generate game level and display it from read file
+class Level:
+	"""Class to create a level in the game."""
+	def __init__(self, file):
+		# Define attibute file (for lvl)
+		self.file = file
+		# Define attribute grid
+		self.grid = 0
+
+	# Method 1 = generates a game level according to lvl file in an attribute 'structure'
+	def generate(self):
+		"""Method which generates a game level according to the file read.
+		We create a general list containing a line per line list to display."""
+		# Open the file and read ('r') it
+		with open(self.file, 'r') as file:
+			grid_level = []
+			# Run the lines in the file
+			for line in file:
+				line_level = []
+				# Run each sprite/letters in the file
+				for sprite in line:
+					# Ignore '\n' at the end of each line (not a sprite)
+					if line != '\n':
+						# Add sprite to lines list
+						line_level.append(sprite)
+				# Add lines to level list
+				grid_level.append(line_level)
+			# Save the grid
+			self.grid = grid_level 
+
+	# Method 2 = displays labyrinth aka game level (we only have one)
+	def display(self, display):
+		"""Method which displays game level according to grid list returned by generate()."""
+		# Load images
+		wall = pygame.image.load(image_wall).convert()
+		start = pygame.image.load(image_start).convert()
+		# convert_alpha for transparent images
+		end = pygame.image.load(image_end).convert_alpha()
+
+		# Run level list
+		line_nb = 0
+		for line in self.grid:
+			# Run lines lists
+			sprite_nb = 0
+			for sprite in line:
+				# Calculate real position in pixels per line
+				x = sprite_nb * sprite_size
+				# Calculate real position in pixels per column
+				y = line_nb * sprite_size
+				if sprite == 'w': # w = wall
+					display.blit(wall, (x,y))
+				elif sprite == 's': # s = start
+					display.blit(start, (x,y))
+				elif sprite == 'e': # e = end = guardian.png = is transparent
+					display.blit(end, (x,y))
+				# Add one sprite
+				sprite_nb += 1
+			# Add one line
+			line_nb += 1
+
+
+# TODO: create class Character to display MacGyver and make him move
+class Character:
+	"""Class that creates a character."""
+	
+	# Define MacGyver with self attributes =
+	def __init__(self, face, level):
+		# Character sprite (convert_alpha = transparency)
+		self.face = pygame.image.load(ig_macgyver).convert_alpha()
+		# Character's position in sprites
+		self.sprite_x = 0
+		self.sprite_y = 0
+		# Character's position in pixels
+		self.x = 0
+		self.y = 0
+		# Game level character is in (we only have the one here)
+		self.level = level
+
+	# Method 1 = to move MacGyver in the game 
+	def move(self, direction):
+		"""Method to move MacGyver."""
+
+		# Moving right
+		if direction == 'right':
+			 # Make sure MacGyver doesn't go past the screen
+			if self.sprite_x < (sprite_per_side - 1):
+				 # Checks destination sprite is not a wall
+				if self.level.grid[self.sprite_y][self.sprite_x+1] != 'w':
+					# Move one sprite
+					self.sprite_x += 1
+					# Computing of MacGyver's 'real' position in pixels
+					self.x = self.sprite_x * sprite_size
+
+		# Moving left
+		if direction == 'left':
+			if self.sprite_x > 0:
+				if self.level.grid[self.sprite_y][self.sprite_x-1] != 'w':
+					self.sprite_x -= 1
+					self.x = self.sprite_x * sprite_size
+
+		# Moving up
+		if direction == 'up':
+			if self.sprite_y > 0:
+				if self.level.grid[self.sprite_y-1][self.sprite_x] != 'w':
+					self.sprite_y -= 1
+					self.y = self.sprite_y * sprite_size
+
+		# Moving down
+		if direction == 'down':
+			if self.sprite_y < (sprite_per_side - 1):
+				if self.level.grid[self.sprite_y+1][self.sprite_x] != 'w':
+					self.sprite_y += 1
+					self.y = self.sprite_y * sprite_size
+
+
+class Item:
+	"""Class that creates the in games items useful to the hero."""
+	
+	# Define 3 objects =	
+	def __init__(self, level, n):
+		# n means number and represents an attribute number strictly between--
+		# --1 and 3 that are the in game items ig_object1, ig_object2
+		if n == 1 : # ig_object1
+			self.face = pygame.image.load(ig_object1).convert_alpha()
+			self.sprite_x = 3
+			self.sprite_y = 6
+	
+		elif n == 2 : # ig_object2
+			self.face = pygame.image.load(ig_object2).convert_alpha()
+			self.sprite_x = 2
+			self.sprite_y = 0
+			
+		elif n == 3 : #ig_object3
+			self.face = pygame.image.load(ig_object3).convert_alpha()
+			self.sprite_x = 11
+			self.sprite_y = 6
+		# These positions are temporary because x and y are hard set
+	
+		# item position in pixels (for now)
+		self.x = self.sprite_x * sprite_size
+		self.y = self.sprite_y * sprite_size
+		# Game level items are in (we only have the one here)
+		self.level = level
