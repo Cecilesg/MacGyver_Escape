@@ -111,10 +111,24 @@ class Character:
 		self.y = 0
 		# Game level character is in (we only have the one here)
 		self.level = level
+		# Counter for the 3 in game objects MacGyver must pick up.
+		self.ig_object = 0
 
 	# Method 1 = to move MacGyver in the game 
 	def move(self, direction):
-		"""Method to move MacGyver."""
+		"""Method to move MacGyver and to pick up in game objects."""
+
+		# Check if MacGyver is on a sprite that has an in game object on it.
+		# 'i' = item.
+		if self.level.grid[self.sprite_y][self.sprite_x] == 'i':
+			print("I've picked up an object! YESSS!!!")
+			# Add 1 to in game object counter.
+			self.ig_object += 1
+			print("I have {} objects.".format(self.ig_object))
+			# Replace 'i' (item sprite) by '0'(free sprite) on the background--
+			# --to make in game objects disappear once MacGyver has picked--
+			# --them up.
+			self.level.grid[self.sprite_y][self.sprite_x] = '0'
 
 		# Moving right
 		if direction == 'right':
