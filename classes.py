@@ -168,26 +168,38 @@ class Item:
 	
 	# Define 3 objects =	
 	def __init__(self, level, n):
+		
+		# Choose a random sprite in list free for a random spot the in game--
+		# --object can spawn on.
+		position = choice(level.free) # Choice = random library.
+		# define position x for random in game object
+		self.sprite_x = position[0]
+		# define position y for random in game object
+		self.sprite_y = position[1]
+
+		# Change sprite type '0' for sprite type 'i' so that in game objects--
+		# --do not spawn on top of each other and they disappear when--
+		# --MacGyver picks them up.
+		# Grid is a list of list with form [[ line1], [line2],..., [line15]]--
+		# --where each line is a list.
+		# New line y and column x.
+		level.grid[self.sprite_y][self.sprite_x] = 'i'
+		# Print grid to visualize the free sprites 'i'.
+		print(level.grid)
+
 		# n means number and represents an attribute number strictly between--
-		# --1 and 3 that are the in game items ig_object1, ig_object2
-		if n == 1 : # ig_object1
+		# --1 and 3 that are the in game objects/items.
+		if n == 1 : # ig_object1.
 			self.face = pygame.image.load(ig_object1).convert_alpha()
-			self.sprite_x = 3
-			self.sprite_y = 6
 	
-		elif n == 2 : # ig_object2
+		elif n == 2 : # ig_object2.
 			self.face = pygame.image.load(ig_object2).convert_alpha()
-			self.sprite_x = 2
-			self.sprite_y = 0
 			
-		elif n == 3 : #ig_object3
+		elif n == 3 : #ig_object3.
 			self.face = pygame.image.load(ig_object3).convert_alpha()
-			self.sprite_x = 11
-			self.sprite_y = 6
-		# These positions are temporary because x and y are hard set
 	
-		# item position in pixels (for now)
+		# item position in pixels.
 		self.x = self.sprite_x * sprite_size
 		self.y = self.sprite_y * sprite_size
-		# Game level items are in (we only have the one here)
+		# Game level items are in (we only have the one here).
 		self.level = level
