@@ -134,7 +134,8 @@ while carry_on:
 		# Refresh.
 		pygame.display.flip()
 
-		# Victory = Game_Menu.
+		# TODO: Victory Loop.
+		# MacGyver is on the end sprite.
 		if level.grid[macgyver.sprite_y][macgyver.sprite_x] == 'e':
 				# Labyrinth loop ends.
 				carry_on_game = 0
@@ -142,5 +143,13 @@ while carry_on:
 				carry_on = 1
 				# Back to game menu for user choice.
 				carry_on_game_menu = 1
+				# If MacGyver has collected 3 in game objects.
+				if macgyver.ig_object == 3:
+					print("You won!")
+				else:
+					print("You lost...")
+				# Resetting in game object counter to 0.
+				macgyver.ig_object = 0
 		
+		# Display new position.
 		display.blit(game_menu, (0,0))
