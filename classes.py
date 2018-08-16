@@ -18,9 +18,9 @@ class Level:
 		self.file = file
 		# Define attribute grid.
 		self.grid = 0
-		# define attribute empty tuples list which runs twice: once for columns &--
-		# --once for lines (x,y) for the empty spots in the labyrinth where--
-		# --the in game objects can randomly spawn.
+		# define attribute empty tuples list which runs twice: once for--
+		# --columns & once for lines (x,y) for the empty spots in the--
+		# --labyrinth where the in game objects can randomly spawn.
 		self.free = [] # free = free sprites.
 
 	# Method 1 = generates a game level according to lvl file in an--
@@ -33,7 +33,7 @@ class Level:
 		with open(self.file, 'r') as file:
 			grid_level = []
 			# Initialize coordinates at -1 because the grid starts at 0--
-			# and I will append +1 to columns and lines.
+			# --and I will append +1 to columns and lines.
 			x = -1
 			y = -1
 			# Run the lines in the file.
@@ -172,9 +172,9 @@ class Item:
 		# Choose a random sprite in list free for a random spot the in game--
 		# --object can spawn on.
 		position = choice(level.free) # Choice = random library.
-		# define position x for random in game object
+		# Define position x for random in game object
 		self.sprite_x = position[0]
-		# define position y for random in game object
+		# Define position y for random in game object
 		self.sprite_y = position[1]
 
 		# Change sprite type '0' for sprite type 'i' so that in game objects--
@@ -198,7 +198,7 @@ class Item:
 		elif n == 3 : #ig_object3.
 			self.face = pygame.image.load(ig_object3).convert_alpha()
 	
-		# item position in pixels.
+		# Item position in pixels.
 		self.x = self.sprite_x * sprite_size
 		self.y = self.sprite_y * sprite_size
 		# Game level items are in (we only have the one here).
