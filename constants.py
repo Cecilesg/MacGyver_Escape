@@ -1,6 +1,9 @@
 #-*- coding: utf-8 -*-
 
-"""Constants file for macgyverescape.py aka Help MacGyver Escape Labyrinth game."""
+"""
+Constants file for macgyverescape.py aka Help MacGyver Escape Labyrinth
+game.
+"""
 
 # TODO: create window display parameters for game.
 # Display window parameters =
@@ -26,7 +29,7 @@ image_end = "images/guardian.png"
 ig_macgyver = "images/macgyver.png"
 ig_murdoc = "images/guardian.png"
 
-# TODO: create object list
+# TODO: create object list =
 ig_object1 = "images/object_circuit.png"
 ig_object2 = "images/object_chemicals.png"
 ig_object3 = "images/object_electricity.png"
