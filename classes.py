@@ -2,7 +2,7 @@
 
 """Help MacGyver Escape Labyrinth game classes."""
 
-# TODO: import libraries
+# TODO: import libraries.
 
 import pygame
 from pygame.locals import *
