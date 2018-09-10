@@ -122,7 +122,7 @@ while carry_on:
 		display.blit(background, (0,0))
 		level.display(display)
 		display.blit(macgyver.face, (macgyver.x, macgyver.y))
-		
+
 		# Display in game objects only if there is 'i' for free item sprite.
 		if level.grid[object1.sprite_y][object1.sprite_x] == 'i':
 			display.blit(object1.face, (object1.x, object1.y))
@@ -130,7 +130,7 @@ while carry_on:
 			display.blit(object2.face, (object2.x, object2.y))
 		if level.grid[object3.sprite_y][object3.sprite_x] == 'i':
 			display.blit(object3.face, (object3.x, object3.y))
-		
+
 		# Refresh.
 		pygame.display.flip()
 
@@ -150,6 +150,8 @@ while carry_on:
 					print("You lost...")
 				# Resetting in game object counter to 0.
 				macgyver.ig_object = 0
-		
+
 		# Display new position.
 		display.blit(game_menu, (0,0))
+# Uninitialise all pygame modules that were previously loaded
+pygame.quit()
